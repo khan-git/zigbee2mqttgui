@@ -1,0 +1,21 @@
+<button mat-raised-button color="warn" (click)="togglePermitJoin()">
+    <span *ngIf="!isJoinable()">Enable</span>
+    <span *ngIf="isJoinable()">Disable</span>
+    Join
+</button>
+<button mat-raised-button color="primary" (click)="touchLinkStart()">Touchlink</button>
+<div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Log level</mat-label>
+      <mat-select [(ngModel)]="log_level" name="name">
+        <mat-option *ngFor="let log_level of log_levels" [value]="log_level">
+          {{log_level}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button >Cancel</button>
+    <button mat-button (click)="setLogLevel()">Save</button>
+  </div>
+  

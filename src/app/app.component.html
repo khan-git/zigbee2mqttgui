@@ -1,0 +1,29 @@
+<h1 style="padding-top: 10px;">Bridge ({{coordinatorType().type}}): 
+  <mat-icon *ngIf="isConnected()" style="color: lightgreen;">check_box</mat-icon>
+  <mat-icon *ngIf="!isConnected()">check_box_outline_blank</mat-icon>,
+  Join: <mat-icon *ngIf="isJoinable()" style="color: red;">warning</mat-icon>
+  <mat-icon *ngIf="!isJoinable()">pause_circle_outline</mat-icon>
+  <button mat-mini-fab (click)="updateSystemView()"><mat-icon>refresh</mat-icon></button>
+</h1>
+<mat-tab-group>
+  <mat-tab label="Home"> 
+    <fieldset>
+      <legend>Summary</legend>
+      <div>{{(getDevices()).length}} devices</div>
+      <div>{{(getDevices() | filterDevice: 'Router').length}} Router</div>
+      <div>{{(getDevices() | filterDevice: 'EndDevice').length}} EndDevice</div>
+      <div>{{getGroups().length}} Groups</div>
+    </fieldset>
+    <fieldset>
+      <legend>Configuration</legend>
+      <div>Type: {{getConfig().coordinator.type}}</div>
+      <div>Version: {{getConfig().version}}</div>
+      <div>Permit Join: {{getConfig().permit_join}}</div>
+      <div>Log level: {{getConfig().log_level}}</div>
+      <pre>{{getConfig() | json}}</pre>
+    </fieldset>
+  </mat-tab>
+  <mat-tab label="Devices"> <app-devices></app-devices></mat-tab>
+  <mat-tab label="Groups"><app-groups></app-groups></mat-tab>
+  <mat-tab label="Control"> <app-control></app-control></mat-tab>
+</mat-tab-group>

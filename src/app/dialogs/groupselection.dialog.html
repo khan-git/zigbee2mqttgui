@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Groups</mat-label>
+    <mat-select [(ngModel)]="data.group" name="name">
+      <mat-option *ngFor="let group of data.groups" [value]="group.friendly_name">
+        {{group.friendly_name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.group" cdkFocusInitial>Save</button>
+</div>

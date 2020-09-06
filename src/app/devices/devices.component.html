@@ -1,0 +1,58 @@
+<fieldset>
+  <legend>Routers</legend>
+  <mat-accordion>
+    <mat-expansion-panel hideToggle *ngFor="let device of getDevices() | filterDevice: 'Router'">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <img src="https://www.zigbee2mqtt.io/images/devices/{{device.model | z2mModelImageSrc}}.jpg" 
+          style="width:50px" 
+          *ngIf="device.type != 'Coordinator'">
+          <mat-icon *ngIf="device.type == 'Coordinator'">usb</mat-icon>
+          {{device.friendly_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{device.type}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-device [device]="device"></app-device>
+    </mat-expansion-panel>
+  </mat-accordion>
+</fieldset>
+
+<fieldset>
+  <legend>EndDevices</legend>
+  <mat-accordion>
+    <mat-expansion-panel hideToggle *ngFor="let device of getDevices() | filterDevice: 'EndDevice'">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <img 
+          src="https://www.zigbee2mqtt.io/images/devices/{{device.model | z2mModelImageSrc}}.jpg" 
+          style="width:50px">
+          {{device.friendly_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{device.type}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-device [device]="device"></app-device>
+    </mat-expansion-panel>
+  </mat-accordion>
+</fieldset>
+
+<fieldset>
+  <legend>Coordinator</legend>
+  <mat-accordion>
+    <mat-expansion-panel hideToggle *ngFor="let device of getDevices() | filterDevice: 'Coordinator'">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon >usb</mat-icon>
+          {{device.friendly_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{device.type}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-device [device]="device"></app-device>
+    </mat-expansion-panel>
+  </mat-accordion>
+</fieldset>

@@ -1,0 +1,17 @@
+<mat-toolbar>
+    <button mat-raised-button color="primary" (click)="addGroup()"><mat-icon>add</mat-icon></button>
+</mat-toolbar>
+<mat-accordion>
+    <mat-expansion-panel hideToggle *ngFor="let group of getGroups()">
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{group.ID}}: {{group.friendly_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+            Group
+        </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-group [group]="group"></app-group>
+    </mat-expansion-panel>
+</mat-accordion>        
+  
