@@ -78,6 +78,38 @@ export class DeviceComponent implements OnInit {
     });
   }
 
+  bindToDevice() {
+    const dialogRef = this.dialog.open(GroupSelectionDialog, {
+      width: '250px',
+      data: { title: 'Bind to device!', groups: this.z2mService.getDevices(), group:'' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === undefined) {
+        console.log("Canceled");
+      }
+      else {
+        this.z2mService.bindToDeviceOrGroup(this.device.friendly_name, result);
+      }
+    });
+  }
+  
+  unBindFromGroup() {
+    const dialogRef = this.dialog.open(GroupSelectionDialog, {
+      width: '250px',
+      data: { title: 'Unbind from group!', groups: this.z2mService.getGroups(), group:'' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === undefined) {
+        console.log("Canceled");
+      }
+      else {
+        this.z2mService.unBindFromDeviceOrGroup(this.device.friendly_name, result);
+      }
+    });
+  }
+
   unbindDefaultGroup() {
     this.z2mService.unBindFromDeviceOrGroup(this.device.friendly_name, 'default_bind_group');
   }
@@ -100,7 +132,7 @@ export class DeviceComponent implements OnInit {
     this.z2mService.getGroupMemebership(this.device.friendly_name);
   }
 
-  removeFromGroup() {
+  removeFromGroup(anyGroup=false) {
     /* Complex operation:
     ** Setup subscripe for group membership
     ** Upon respons, ask which group to remove and send remove command
@@ -109,10 +141,12 @@ export class DeviceComponent implements OnInit {
     this.z2mService.testUnsubscribe('zigbee2mqtt/'+this.device.friendly_name+'/group_list', (message:IMqttMessage) => {
       let groupsId: object[] = JSON.parse('['+message.payload.toString()+']');
       let groups = this.z2mService.getGroups();
-      var groupsFiltered = groups.filter((g, i, groupA) => {
-        return groupsId.includes(g.ID);
-      });
-
+      var groupsFiltered = groups;
+      if(!anyGroup) {
+        groupsFiltered = groups.filter((g, i, groupA) => {
+          return groupsId.includes(g.ID);
+        });  
+      }
       const dialogRef = this.dialog.open(GroupSelectionDialog, {
         width: '250px',
         data: { title: 'Remote from group', groups: groupsFiltered, group:'' }
@@ -129,5 +163,9 @@ export class DeviceComponent implements OnInit {
       });  
     });
     this.z2mService.getGroupMemebership(this.device.friendly_name);
+  }
+
+  checkOTA() {
+    this.z2mService.unsafePublish("zigbee2mqtt/bridge/ota_update/check", this.device.friendly_name);
   }
 }

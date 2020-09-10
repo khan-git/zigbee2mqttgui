@@ -4,10 +4,14 @@
 <button mat-raised-button color="primary" (click)="toggleState()">Toggle state</button>
 <button mat-raised-button color="primary" (click)="getGroupMembership()">Group membership</button>
 <button mat-raised-button color="warn" (click)="removeFromGroup()">Remove from group</button>
+<button mat-raised-button color="warn" (click)="removeFromGroup(true)">Remove from any group</button>
 <button mat-raised-button color="warn" (click)="removeDevice()">Remove</button>
 <button mat-raised-button color="warn" (click)="removeForceDevice()">Force Remove</button>
 <button mat-raised-button color="primary" (click)="addToGroup()">Add to group</button>
 <button mat-raised-button color="primary" (click)="bindToGroup()">Bind to group</button>
+<button mat-raised-button color="primary" (click)="bindToDevice()">Bind to device</button>
 <button mat-raised-button color="primary" (click)="unbindDefaultGroup()">Unbind from default group</button>
+<button mat-raised-button color="primary" (click)="unBindFromGroup()">Unbind from group</button>
+<button mat-raised-button color="primary" (click)="checkOTA()">Check for OTA</button>
 
 <pre>{{getDeviceExtended(device.networkAddress) | json}}</pre>

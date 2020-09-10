@@ -19,7 +19,6 @@ export interface FriendlynameDialogData {
   
     onNoClick(): void {
       this.dialogRef.close();
-    }
-  
   }
+}
   
